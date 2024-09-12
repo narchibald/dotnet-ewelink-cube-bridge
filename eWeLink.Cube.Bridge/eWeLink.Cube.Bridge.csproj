@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>EWeLink.Cube.Bridge</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>EWeLink.Cube.Bridge</AssemblyName>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageId>DotNet-eWeLink.Cube.Bridge</PackageId>
+        <Version>0.5.8</Version>
+        <Title>EWeLink Cube Bridge</Title>
+        <Authors />
+        <Description>Library to help convert Cube state events to EventParameters </Description>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\eWeLink.Cube.Bridge.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="DotNet-eWeLink.Api" Version="0.6.5" />
+      <PackageReference Include="DotNet-eWeLink.Cube.Api" Version="0.6.6" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\eWeLink.Cube.Bridge.snk">
+        <Link>eWeLink.Cube.Bridge.snk</Link>
+      </None>
+    </ItemGroup>
+
+</Project>
