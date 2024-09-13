@@ -7,20 +7,25 @@ namespace EWeLink.Cube.Bridge;
 
 public static class LinkEventExtensions
 {
+    private static readonly Dictionary<Type, Func<SubDeviceState, DateTimeOffset?, IEventParameters?>> Converters = new()
+    {
+        { typeof(ButtonState), (s, t) => ToEventParameters((ButtonState)s, t) },
+        { typeof(ZbMicroState), (s, t) => ToEventParameters((ZbMicroState)s, t) },
+        { typeof(CurtainState), (s, t) => ToEventParameters((CurtainState)s, t) },
+        { typeof(WindowDoorSensor), (s, t) => ToEventParameters((WindowDoorSensor)s, t) },
+        { typeof(TemperatureAndHumiditySensor), (s, t) => ToEventParameters((TemperatureAndHumiditySensor)s, t) },
+        { typeof(MotionSensorPro), (s, t) => ToEventParameters((MotionSensorPro)s, t) },
+        { typeof(MotionSensor), (s, t) => ToEventParameters((MotionSensor)s, t) },
+        { typeof(PresenceSensor), (s, t) => ToEventParameters((PresenceSensor)s, t) },
+    };
+    
     public static IEventParameters? ToEventParameters(this ILinkEvent<SubDeviceState> linkEvent, DateTimeOffset? triggerTime = null)
     {
-        return linkEvent.State switch
-        {
-            ButtonState buttonState => ToEventParameters(buttonState, triggerTime),
-            ZbMicroState zbMicroState => ToEventParameters(zbMicroState, triggerTime),
-            CurtainState curtainState => ToEventParameters(curtainState, triggerTime),
-            WindowDoorSensor windowDoorSensorState => ToEventParameters(windowDoorSensorState, triggerTime),
-            TemperatureAndHumiditySensor temperatureAndHumiditySensorState => ToEventParameters(temperatureAndHumiditySensorState, triggerTime),
-            MotionSensorPro motionSensorProState => ToEventParameters(motionSensorProState, triggerTime),
-            MotionSensor motionSensorState => ToEventParameters(motionSensorState, triggerTime),
-            PresenceSensor presenceSensorState => ToEventParameters(presenceSensorState, triggerTime),
-            _ => throw new NotImplementedException($"{linkEvent.State.GetType()}"),
-        };
+        var state = linkEvent.State;
+        if (Converters.TryGetValue(state.GetType(), out var converter))
+            return converter(state, triggerTime);
+        
+        throw new NotImplementedException($"{linkEvent.State.GetType()}");
     }
     
     public static ISnZbButtonEventParameters? ToEventParameters(this ButtonState state, DateTimeOffset? triggerTime = null)
