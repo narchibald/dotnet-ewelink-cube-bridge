@@ -8,7 +8,7 @@
         <AssemblyName>EWeLink.Cube.Bridge</AssemblyName>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>DotNet-eWeLink.Cube.Bridge</PackageId>
-        <Version>0.5.9</Version>
+        <Version>0.5.24</Version>
         <Title>EWeLink Cube Bridge</Title>
         <Authors />
         <Description>Library to help convert Cube state events to EventParameters </Description>
@@ -17,8 +17,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="DotNet-eWeLink.Api" Version="0.6.5" />
-      <PackageReference Include="DotNet-eWeLink.Cube.Api" Version="0.6.6" />
+      <PackageReference Include="DotNet-eWeLink.Api" Version="0.6.9" />
+      <PackageReference Include="DotNet-eWeLink.Cube.Api" Version="0.8.10" />
     </ItemGroup>
 
     <ItemGroup>
